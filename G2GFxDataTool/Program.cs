@@ -1,5 +1,4 @@
 ﻿using CommandLine;
-using SwfOp;
 
 namespace G2GFxDataTool
 {
@@ -19,9 +18,7 @@ namespace G2GFxDataTool
                         string ext = Path.GetExtension(options.inputPath);
                         if (ext == ".swf")
                         {
-                            Console.WriteLine("SWF file found");
-                            ContentParser parser = new ContentParser(options.inputPath);
-                            parser.Run();
+                            ProcessSWF.SWFToGFXF(options.inputPath, options.outputPath);
                         }
                     }
                 });
