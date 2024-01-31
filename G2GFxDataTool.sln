@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "G2GFxDataTool", "G2GFxDataTool\G2GFxDataTool.csproj", "{E3DBED30-EAA5-4A6E-84CB-F74E907C76A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwfOp", "External\flashdevelop\External\Tools\SwfOp\SwfOp.csproj", "{DFFCFF12-CB60-4748-8F23-0C36F140F44C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3DBED30-EAA5-4A6E-84CB-F74E907C76A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3DBED30-EAA5-4A6E-84CB-F74E907C76A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3DBED30-EAA5-4A6E-84CB-F74E907C76A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3DBED30-EAA5-4A6E-84CB-F74E907C76A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFFCFF12-CB60-4748-8F23-0C36F140F44C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFFCFF12-CB60-4748-8F23-0C36F140F44C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFFCFF12-CB60-4748-8F23-0C36F140F44C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFFCFF12-CB60-4748-8F23-0C36F140F44C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D3929DD-C5CB-447D-BC2A-3BDBDA6ACEDA}
+	EndGlobalSection
+EndGlobal

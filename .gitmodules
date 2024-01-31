@@ -1,0 +1,3 @@
+[submodule "External/flashdevelop"]
+	path = External/flashdevelop
+	url = https://github.com/glacier-modding/flashdevelop.git
