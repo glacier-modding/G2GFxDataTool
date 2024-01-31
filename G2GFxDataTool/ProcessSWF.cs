@@ -42,6 +42,11 @@ namespace G2GFxDataTool
 
             foreach (var textureFileName in textureFileNamesList)
             {
+                if (textureFileName.EndsWith(".gfx")) // Some versions of GFxExport may include the .gfx file itself in the list file.
+                {
+                    continue;
+                }
+
                 string texturePath = Path.Combine(tempFolderPath, textureFileName);
                 if (File.Exists(texturePath))
                 {
