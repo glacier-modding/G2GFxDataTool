@@ -13,6 +13,14 @@ namespace G2GFxDataTool
             parser
                 .WithParsed(options =>
                 {
+                    if (options.outputPath != null)
+                    {
+                        if (!Directory.Exists(options.outputPath))
+                        {
+                            Directory.CreateDirectory(options.outputPath);
+                        }
+                    }
+
                     if (options.inputPath != null)
                     {
                         string ext = Path.GetExtension(options.inputPath);
