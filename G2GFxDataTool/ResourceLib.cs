@@ -178,7 +178,7 @@ public static class ResourceLib
     public class ResourceConverter
     {
         private readonly Native.ResourceConverter m_NativeConverter;
-        
+
         public ResourceConverter(string p_ResourceType, Game p_Game)
         {
             var s_ConverterPtr = p_Game switch
@@ -188,59 +188,59 @@ public static class ResourceLib
                 Game.Hitman3 => Native.HM3_GetConverterForResource(p_ResourceType),
                 _ => throw new ArgumentOutOfRangeException(nameof(p_Game), p_Game, null)
             };
-            
+
             if (s_ConverterPtr == IntPtr.Zero)
                 throw new Exception($"ResourceLib does not support converting '{p_ResourceType}' resources for {p_Game}.");
-            
+
             m_NativeConverter = Marshal.PtrToStructure<Native.ResourceConverter>(s_ConverterPtr);
         }
-        
+
         public bool FromResourceFileToJsonFile(string p_ResourceFilePath, string p_OutputFilePath)
         {
             return m_NativeConverter.FromResourceFileToJsonFile(p_ResourceFilePath, p_OutputFilePath);
         }
-        
+
         public bool FromMemoryToJsonFile(byte[] p_ResourceData, string p_OutputFilePath)
         {
             var s_ResourceDataPtr = Marshal.AllocHGlobal(p_ResourceData.Length);
             Marshal.Copy(p_ResourceData, 0, s_ResourceDataPtr, p_ResourceData.Length);
-            
+
             var s_Result = m_NativeConverter.FromMemoryToJsonFile(s_ResourceDataPtr, (UIntPtr)p_ResourceData.Length, p_OutputFilePath);
-            
+
             Marshal.FreeHGlobal(s_ResourceDataPtr);
             return s_Result;
         }
-        
+
         public string FromResourceFileToJsonString(string p_ResourceFilePath)
         {
             var s_NativeJsonStringPtr = m_NativeConverter.FromResourceFileToJsonString(p_ResourceFilePath);
-           
+
             if (s_NativeJsonStringPtr == IntPtr.Zero)
                 throw new Exception($"Failed to convert '{p_ResourceFilePath}' to JSON.");
-            
+
             var s_NativeJsonString = Marshal.PtrToStructure<Native.JsonString>(s_NativeJsonStringPtr);
             var s_JsonString = Marshal.PtrToStringUTF8(s_NativeJsonString.JsonData, (int)s_NativeJsonString.StrSize);
             m_NativeConverter.FreeJsonString(s_NativeJsonStringPtr);
-            
+
             return s_JsonString;
         }
-        
+
         public string FromMemoryToJsonString(byte[] p_ResourceData)
         {
             var s_ResourceDataPtr = Marshal.AllocHGlobal(p_ResourceData.Length);
             Marshal.Copy(p_ResourceData, 0, s_ResourceDataPtr, p_ResourceData.Length);
-            
+
             var s_NativeJsonStringPtr = m_NativeConverter.FromMemoryToJsonString(s_ResourceDataPtr, (UIntPtr)p_ResourceData.Length);
-            
+
             Marshal.FreeHGlobal(s_ResourceDataPtr);
-            
+
             if (s_NativeJsonStringPtr == IntPtr.Zero)
                 throw new Exception($"Failed to convert resource data to JSON.");
-            
+
             var s_NativeJsonString = Marshal.PtrToStructure<Native.JsonString>(s_NativeJsonStringPtr);
             var s_JsonString = Marshal.PtrToStringUTF8(s_NativeJsonString.JsonData, (int)s_NativeJsonString.StrSize);
             m_NativeConverter.FreeJsonString(s_NativeJsonStringPtr);
-            
+
             return s_JsonString;
         }
     }
@@ -248,7 +248,7 @@ public static class ResourceLib
     public class ResourceGenerator
     {
         private readonly Native.ResourceGenerator m_NativeGenerator;
-        
+
         public ResourceGenerator(string p_ResourceType, Game p_Game)
         {
             var s_GeneratorPtr = p_Game switch
@@ -258,50 +258,50 @@ public static class ResourceLib
                 Game.Hitman3 => Native.HM3_GetGeneratorForResource(p_ResourceType),
                 _ => throw new ArgumentOutOfRangeException(nameof(p_Game), p_Game, null)
             };
-            
+
             if (s_GeneratorPtr == IntPtr.Zero)
                 throw new Exception($"ResourceLib does not support generating '{p_ResourceType}' resources for {p_Game}.");
-            
+
             m_NativeGenerator = Marshal.PtrToStructure<Native.ResourceGenerator>(s_GeneratorPtr);
         }
-        
+
         public bool FromJsonFileToResourceFile(string p_JsonFilePath, string p_OutputFilePath, bool p_GenerateCompatible = false)
         {
             return m_NativeGenerator.FromJsonFileToResourceFile(p_JsonFilePath, p_OutputFilePath, p_GenerateCompatible);
         }
-        
+
         public bool FromJsonStringToResourceFile(string p_JsonString, string p_OutputFilePath, bool p_GenerateCompatible = false)
         {
             return m_NativeGenerator.FromJsonStringToResourceFile(p_JsonString, (UIntPtr)p_JsonString.Length, p_OutputFilePath, p_GenerateCompatible);
         }
-        
+
         public byte[] FromJsonFileToResourceMem(string p_JsonFilePath, bool p_GenerateCompatible = false)
         {
             var s_NativeResourceMemPtr = m_NativeGenerator.FromJsonFileToResourceMem(p_JsonFilePath, p_GenerateCompatible);
-            
+
             if (s_NativeResourceMemPtr == IntPtr.Zero)
                 throw new Exception($"Failed to convert '{p_JsonFilePath}' to resource data.");
-            
+
             var s_NativeResourceMem = Marshal.PtrToStructure<Native.ResourceMem>(s_NativeResourceMemPtr);
             var s_ResourceMem = new byte[(int)s_NativeResourceMem.DataSize];
             Marshal.Copy(s_NativeResourceMem.ResourceData, s_ResourceMem, 0, (int)s_NativeResourceMem.DataSize);
             m_NativeGenerator.FreeResourceMem(s_NativeResourceMemPtr);
-            
+
             return s_ResourceMem;
         }
-        
+
         public byte[] FromJsonStringToResourceMem(string p_JsonString, bool p_GenerateCompatible = false)
         {
             var s_NativeResourceMemPtr = m_NativeGenerator.FromJsonStringToResourceMem(p_JsonString, (UIntPtr)p_JsonString.Length, p_GenerateCompatible);
-            
+
             if (s_NativeResourceMemPtr == IntPtr.Zero)
                 throw new Exception($"Failed to convert JSON to resource data.");
-            
+
             var s_NativeResourceMem = Marshal.PtrToStructure<Native.ResourceMem>(s_NativeResourceMemPtr);
             var s_ResourceMem = new byte[(int)s_NativeResourceMem.DataSize];
             Marshal.Copy(s_NativeResourceMem.ResourceData, s_ResourceMem, 0, (int)s_NativeResourceMem.DataSize);
             m_NativeGenerator.FreeResourceMem(s_NativeResourceMemPtr);
-            
+
             return s_ResourceMem;
         }
     }
@@ -315,12 +315,12 @@ public static class ResourceLib
             Game.Hitman3 => Native.HM3_GetSupportedResourceTypes(),
             _ => throw new ArgumentOutOfRangeException(nameof(p_Game), p_Game, null)
         };
-        
+
         if (s_SupportedResourcesPtr == IntPtr.Zero)
             throw new Exception($"Could not get supported resource types for {p_Game}.");
-        
+
         var s_SupportedResourcesArray = Marshal.PtrToStructure<Native.ResourceTypesArray>(s_SupportedResourcesPtr);
-        
+
         var s_SupportedResources = new int[(int)s_SupportedResourcesArray.TypeCount];
         Marshal.Copy(s_SupportedResourcesArray.Types, s_SupportedResources, 0, (int)s_SupportedResourcesArray.TypeCount);
 
@@ -329,19 +329,19 @@ public static class ResourceLib
             case Game.Hitman2016:
                 Native.HM2016_FreeSupportedResourceTypes(s_SupportedResourcesPtr);
                 break;
-            
+
             case Game.Hitman2:
                 Native.HM2_FreeSupportedResourceTypes(s_SupportedResourcesPtr);
                 break;
-            
+
             case Game.Hitman3:
                 Native.HM3_FreeSupportedResourceTypes(s_SupportedResourcesPtr);
                 break;
         }
-        
+
         return s_SupportedResources;
     }
-    
+
     public static bool IsResourceTypeSupported(string p_ResourceType, Game p_Game)
     {
         return p_Game switch

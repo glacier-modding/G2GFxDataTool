@@ -1,11 +1,11 @@
-﻿using System.Text.Json;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using System.Text.Json;
 
 namespace G2GFxDataTool
 {
-    internal class ProcessSWF
+    internal class ScaleformGFxWriter
     {
-        public static void SWFToGFXF(string inputPath, string outputPath)
+        internal static void WriteScaleformGfX(string inputPath, string outputPath)
         {
             string gfxexport = "gfxexport.exe";
             string gfxFileName = Path.GetFileNameWithoutExtension(inputPath);
