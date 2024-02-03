@@ -12,7 +12,7 @@ Copyright (C) Glacier 2 Modding Organisation
 
   -o, --output      Required. Path to output files.
 
-  -l, --licenses    Prints license information for G2WwiseDataTool and third party libraries that are used.
+  -l, --licenses    Prints license information for G2GFxDataTool and third party libraries that are used.
 
   --help            Display this help screen.
 
