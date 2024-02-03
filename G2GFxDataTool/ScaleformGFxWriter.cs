@@ -70,6 +70,8 @@ namespace G2GFxDataTool
             string assemblyPath = Helpers.AssemblyPathDeriver(inputPath, "swf");
             string assemblyPathHash = Helpers.ConvertStringtoMD5(assemblyPath);
 
+            Program.logScaleformGFxPaths.Add(assemblyPathHash + ".GFXF," + assemblyPath);
+
             File.WriteAllBytes(Path.Combine(outputPath, assemblyPathHash + ".GFXF"), s_ResourceMem);
 
         }

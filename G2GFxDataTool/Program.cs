@@ -1,10 +1,11 @@
-using CommandLine;
+﻿using CommandLine;
 
 namespace G2GFxDataTool
 {
     internal class Program
     {
-        public static List<string> errorLogs = new List<string>();
+        public static HashSet<string> logUIControlPaths = new HashSet<string>();
+        public static HashSet<string> logScaleformGFxPaths = new HashSet<string>();
 
         static void Main(string[] args)
         {
@@ -35,6 +36,13 @@ namespace G2GFxDataTool
                     {
                         Licenses.PrintLicenses();
                     }
+
+                    if (options.savePaths)
+                    {
+                        File.WriteAllLines(Path.Combine(options.outputPath, "uicontrol.txt"), logUIControlPaths);
+                        File.WriteAllLines(Path.Combine(options.outputPath, "scaleformgfx.txt"), logScaleformGFxPaths);
+                    }
+
                 });
         }
     }

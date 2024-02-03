@@ -49,6 +49,9 @@ namespace G2GFxDataTool
                 string uictAssemblyPathHash = Helpers.ConvertStringtoMD5(uictAssemblyPath);
                 string uicbAssemblyPathHash = Helpers.ConvertStringtoMD5(uicbAssemblyPath);
 
+                Program.logUIControlPaths.Add(uictAssemblyPathHash + ".UICT," + uictAssemblyPath);
+                Program.logUIControlPaths.Add(uicbAssemblyPathHash + ".UICB," + uicbAssemblyPath);
+
                 MetaFiles.MetaData uictMetaData = new MetaFiles.MetaData();
                 uictMetaData.hashValue = uictAssemblyPathHash;
                 uictMetaData.hashOffset = 22219579;
