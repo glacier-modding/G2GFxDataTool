@@ -1,4 +1,4 @@
-﻿using CommandLine;
+using CommandLine;
 
 namespace G2GFxDataTool
 {
@@ -29,6 +29,11 @@ namespace G2GFxDataTool
                             ScaleformGFxWriter.WriteScaleformGfX(options.inputPath, options.outputPath);
                             UIControlWriter.WriteUIControl(options.inputPath, options.outputPath);
                         }
+                    }
+
+                    if (options.licenses)
+                    {
+                        Licenses.PrintLicenses();
                     }
                 });
         }
