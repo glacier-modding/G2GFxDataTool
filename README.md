@@ -8,11 +8,13 @@ Requires a copy of [GFxExport v4.01](https://files.hitmods.com/gfxexport-4.01-4.
 G2GFxDataTool 1.0.0
 Copyright (C) Glacier 2 Modding Organisation
 
-  -i, --input     Required. Path to the SWF file.
+  -i, --input       Required. Path to the SWF file.
 
-  -o, --output    Required. Path to output files.
+  -o, --output      Required. Path to output files.
 
-  --help          Display this help screen.
+  -l, --licenses    Prints license information for G2WwiseDataTool and third party libraries that are used.
 
-  --version       Display version information.
+  --help            Display this help screen.
+
+  --version         Display version information.
 ```
