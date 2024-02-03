@@ -1,0 +1,61 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  build_all:
+    name: Build (win-x64)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+            submodules: true
+
+      - name: Build
+        run: dotnet publish -c Release /p:PublishProfile=win-x64 -p:DebugType=none
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: win-x64
+          path: G2GFxDataTool\bin\Release\net8.0\publish\win-x64
+
+  release:
+    needs: build_all
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: Download win-x64 artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: win-x64
+
+      - name: Download ResourceTool
+        uses: robinraju/release-downloader@v1.9
+        with:
+            repository: "OrfeasZ/ZHMTools"
+            latest: true
+            extract: true
+            fileName: "ResourceLib-win-x64.zip"
+
+      - name: Package artifacts for release
+        run: |
+          zip -r win-x64.zip G2GFxDataTool.exe ResourceLib_HM2016.dll ResourceLib_HM3.dll ResourceLib_HM2.dll
+
+      - name: Create Release
+        id: create_release
+        
+        uses: softprops/action-gh-release@v1
+        with:
+          files: win-x64.zip
