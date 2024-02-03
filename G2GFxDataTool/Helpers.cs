@@ -1,5 +1,4 @@
-﻿using System.Security.AccessControl;
-using System.Text;
+﻿using System.Text;
 
 namespace G2GFxDataTool
 {
@@ -51,7 +50,7 @@ namespace G2GFxDataTool
                 {
                     string assemblyPath = inputPath.Substring(index + searchTerm.Length).Replace('\\', '/');
 
-                    assemblyPath = $"[assembly:/{assemblyPath}?/{className}.uic].pc";
+                    assemblyPath = $"[assembly:/{assemblyPath}?/{className}.uic].pc_";
 
                     return assemblyPath.ToLower();
                 }

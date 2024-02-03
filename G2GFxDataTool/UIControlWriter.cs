@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System.Text.Json;
-using static G2GFxDataTool.ParseSWF;
+﻿using System.Text.Json;
 
 namespace G2GFxDataTool
 {
@@ -43,9 +41,9 @@ namespace G2GFxDataTool
                 };
 
 
-                string uictAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "_entitytype";
-                string uicbAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "_entityblueprint";
-                
+                string uictAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entitytype";
+                string uicbAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entityblueprint";
+
                 string uictAssemblyPathHash = Helpers.ConvertStringtoMD5(uictAssemblyPath);
                 string uicbAssemblyPathHash = Helpers.ConvertStringtoMD5(uicbAssemblyPath);
 
@@ -95,7 +93,7 @@ namespace G2GFxDataTool
                 string jsonData = JsonSerializer.Serialize(uicbData);
 
                 File.Create(Path.Combine(outputPath, uictAssemblyPathHash + ".UICT"));
-                //File.WriteAllText(Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB.json"), jsonData);
+                File.WriteAllText(Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB.json"), jsonData);
             }
         }
     }
