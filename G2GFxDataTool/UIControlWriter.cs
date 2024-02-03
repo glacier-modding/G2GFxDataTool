@@ -27,7 +27,9 @@ namespace G2GFxDataTool
                     m_aPins = definition.classMethods.Select(method => new
                     {
                         m_eKind = "E_ATTRIBUTE_KIND_INPUT_PIN",
-                        m_eType = typeMapping.GetValueOrDefault(method.returnType, "E_ATTRIBUTE_TYPE_VOID"),
+                        m_eType = method.argumentTypes != null && method.argumentTypes.Count == 1
+                          ? typeMapping.GetValueOrDefault(method.argumentTypes[0], "E_ATTRIBUTE_TYPE_VOID")
+                          : "E_ATTRIBUTE_TYPE_VOID",
                         m_sName = method.methodName
                     }).ToList(),
                     m_aProperties = definition.classProperties.Select(prop => new
