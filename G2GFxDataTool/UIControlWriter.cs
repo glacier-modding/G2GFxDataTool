@@ -16,28 +16,28 @@ namespace G2GFxDataTool
 
         internal class UICBData
         {
-            public List<Pin> Pins { get; set; }
-            public List<Property> Properties { get; set; }
+            public List<Pin> m_aPins { get; set; }
+            public List<Property> m_aProperties { get; set; }
 
             public UICBData()
             {
-                Pins = new List<Pin>();
-                Properties = new List<Property>();
+                m_aPins = new List<Pin>();
+                m_aProperties = new List<Property>();
             }
         }
 
         internal class Pin
         {
-            public string Name { get; set; }
             public string m_eKind { get; set; } = "E_ATTRIBUTE_KIND_INPUT_PIN";
             public string m_eType { get; set; }
+            public string m_sName { get; set; }
         }
 
         internal class Property
         {
-            public string Name { get; set; }
             public string m_eKind { get; set; } = "E_ATTRIBUTE_KIND_PROPERTY";
             public string m_eType { get; set; }
+            public string m_sName { get; set; }
             public int m_nPropertyOffset { get; set; } = 0;
             public int m_nPropertyId { get; set; } = 0;
         }
@@ -60,14 +60,14 @@ namespace G2GFxDataTool
 
                     Pin pins = new Pin
                     {
-                        Name = method.methodName,
+                        m_sName = method.methodName,
                         m_eKind = "E_ATTRIBUTE_KIND_INPUT_PIN",
                         m_eType = "E_ATTRIBUTE_TYPE_VOID",
                     };
 
                     if (Helpers.IsOutputPin(method.methodName, out string pinName))
                     {
-                        pins.Name = pinName;
+                        pins.m_sName = pinName;
                         pins.m_eKind = "E_ATTRIBUTE_KIND_OUTPUT_PIN";
                     }
 
@@ -76,21 +76,21 @@ namespace G2GFxDataTool
                         pins.m_eType = typeMapping.GetValueOrDefault(method.argumentTypes[0]);
                     }
 
-                    data.Pins.Add(pins);
+                    data.m_aPins.Add(pins);
                 }
 
                 foreach (var property in definition.classProperties)
                 {
                     Property properties = new Property
                     {
-                        Name = property.classPropertyName,
+                        m_sName = property.classPropertyName,
                         m_eKind = "E_ATTRIBUTE_KIND_PROPERTY",
                         m_eType = typeMapping.GetValueOrDefault(property.classPropertyType),
                         m_nPropertyOffset = 0,
                         m_nPropertyId = 0
                     };
 
-                    data.Properties.Add(properties);
+                    data.m_aProperties.Add(properties);
                 }
 
                 string uictAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entitytype";
