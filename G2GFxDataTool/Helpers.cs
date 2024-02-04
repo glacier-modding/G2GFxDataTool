@@ -59,5 +59,17 @@ namespace G2GFxDataTool
             }
         }
 
+        internal static bool IsOutputPin(string methodName, out string pinName)
+        {
+            if (methodName.ToLower().StartsWith("send_"))
+            {
+                pinName = methodName.Substring("send_".Length);
+                return true;
+            }
+
+            pinName = "";
+            return false;
+        }
+
     }
 }
