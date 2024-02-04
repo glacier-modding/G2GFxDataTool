@@ -63,6 +63,10 @@ namespace G2GFxDataTool
 
                         foreach (MemberInfo info in members)
                         {
+                            if (info.name.uri == "private")
+                            {
+                                continue;
+                            }
                             if (info is MethodInfo)
                             {
                                 MethodInfo method = info as MethodInfo;
