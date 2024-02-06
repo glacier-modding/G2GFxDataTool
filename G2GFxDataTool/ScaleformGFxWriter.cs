@@ -74,6 +74,27 @@ namespace G2GFxDataTool
 
             File.WriteAllBytes(Path.Combine(outputPath, assemblyPathHash + ".GFXF"), s_ResourceMem);
 
+            // Cleanup temp files
+            try
+            {
+                File.Delete(gfxFile);
+
+                File.Delete(Path.Combine(tempFolderPath, gfxFileName + ".lst"));
+
+                foreach (var textureFileName in textureFileNamesList)
+                {
+                    string texturePath = Path.Combine(tempFolderPath, textureFileName);
+                    if (File.Exists(texturePath))
+                    {
+                        File.Delete(texturePath);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error cleaning up temporary files: {ex}");
+            }
+
         }
     }
 }
