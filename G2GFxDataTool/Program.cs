@@ -24,11 +24,28 @@ namespace G2GFxDataTool
 
                     if (options.inputPath != null)
                     {
-                        string ext = Path.GetExtension(options.inputPath);
-                        if (ext == ".swf")
+                        FileAttributes attr = File.GetAttributes(options.inputPath);
+
+                        if (attr.HasFlag(FileAttributes.Directory))
                         {
-                            ScaleformGFxWriter.WriteScaleformGfX(options.inputPath, options.outputPath);
-                            UIControlWriter.WriteUIControl(options.inputPath, options.outputPath);
+                            foreach (var file in Directory.GetFiles(options.inputPath))
+                            {
+                                string ext = Path.GetExtension(file);
+                                if (ext == ".swf")
+                                {
+                                    ScaleformGFxWriter.WriteScaleformGfX(file, options.outputPath);
+                                    UIControlWriter.WriteUIControl(file, options.outputPath);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            string ext = Path.GetExtension(options.inputPath);
+                            if (ext == ".swf")
+                            {
+                                ScaleformGFxWriter.WriteScaleformGfX(options.inputPath, options.outputPath);
+                                UIControlWriter.WriteUIControl(options.inputPath, options.outputPath);
+                            }
                         }
                     }
 
