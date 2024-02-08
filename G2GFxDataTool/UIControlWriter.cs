@@ -42,13 +42,18 @@ namespace G2GFxDataTool
             public int m_nPropertyId { get; set; } = 0;
         }
 
-        internal static void WriteUIControl(string inputPath, string outputPath)
+        internal static void WriteUIControl(string inputPath, string outputPath, bool verbose)
         {
             var definitions = ParseSWF.ParseAS(inputPath);
 
             foreach (var definition in definitions)
             {
                 UICBData data = new UICBData();
+
+                if (verbose)
+                {
+                    Console.WriteLine("\r\nFound class: " + definition.className + ":");
+                }
 
                 foreach (var method in definition.classMethods)
                 {
@@ -76,6 +81,11 @@ namespace G2GFxDataTool
                         pins.m_eType = typeMapping.GetValueOrDefault(method.argumentTypes[0]);
                     }
 
+                    if (verbose)
+                    {
+                        Console.WriteLine("\tFound pin: " + pins.m_sName + " type: " + pins.m_eType + " kind: " + pins.m_eKind);
+                    }
+
                     data.m_aPins.Add(pins);
                 }
 
@@ -89,6 +99,11 @@ namespace G2GFxDataTool
                         m_nPropertyOffset = 0,
                         m_nPropertyId = 0
                     };
+
+                    if (verbose)
+                    {
+                        Console.WriteLine("\tFound property: " + property.classPropertyName + " type: " + property.classPropertyType);
+                    }
 
                     data.m_aProperties.Add(properties);
                 }
@@ -145,7 +160,18 @@ namespace G2GFxDataTool
 
                 string jsonData = JsonSerializer.Serialize(data);
 
+                if (verbose)
+                {
+                    Console.WriteLine("Saving UICT file as '" + Path.Combine(outputPath, uictAssemblyPathHash + ".UICT"));
+                }
+
                 File.Create(Path.Combine(outputPath, uictAssemblyPathHash + ".UICT"));
+
+                if (verbose)
+                {
+                    Console.WriteLine("Saving UICB file as '" + Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB.json"));
+                }
+
                 File.WriteAllText(Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB.json"), jsonData);
             }
         }

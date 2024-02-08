@@ -33,8 +33,8 @@ namespace G2GFxDataTool
                                 string ext = Path.GetExtension(file);
                                 if (ext == ".swf")
                                 {
-                                    ScaleformGFxWriter.WriteScaleformGfX(file, options.outputPath);
-                                    UIControlWriter.WriteUIControl(file, options.outputPath);
+                                    ScaleformGFxWriter.WriteScaleformGfX(file, options.outputPath, options.verbose);
+                                    UIControlWriter.WriteUIControl(file, options.outputPath, options.verbose);
                                 }
                             }
                         }
@@ -43,8 +43,8 @@ namespace G2GFxDataTool
                             string ext = Path.GetExtension(options.inputPath);
                             if (ext == ".swf")
                             {
-                                ScaleformGFxWriter.WriteScaleformGfX(options.inputPath, options.outputPath);
-                                UIControlWriter.WriteUIControl(options.inputPath, options.outputPath);
+                                ScaleformGFxWriter.WriteScaleformGfX(options.inputPath, options.outputPath, options.verbose);
+                                UIControlWriter.WriteUIControl(options.inputPath, options.outputPath, options.verbose);
                             }
                         }
                     }

@@ -13,6 +13,9 @@ namespace G2GFxDataTool
         [Option('s', "save-paths", SetName = "export", Required = false, HelpText = "Saves Scaleform GFx and UIControl paths to scaleformgfx.txt and uicontrol.txt text files in the output directory.")]
         public bool savePaths { get; set; }
 
+        [Option('v', "verbose", SetName = "export", Required = false, HelpText = "Sets output to verbose messages mode.")]
+        public bool verbose { get; set; }
+
         [Option('l', "licenses", SetName = "licenses", Required = false, HelpText = "Prints license information for G2GFxDataTool and third party libraries that are used.")]
         public bool licenses { get; set; }
     }

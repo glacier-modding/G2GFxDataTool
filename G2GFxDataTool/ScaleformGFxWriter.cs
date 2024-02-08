@@ -5,7 +5,7 @@ namespace G2GFxDataTool
 {
     internal class ScaleformGFxWriter
     {
-        internal static void WriteScaleformGfX(string inputPath, string outputPath)
+        internal static void WriteScaleformGfX(string inputPath, string outputPath, bool verbose)
         {
             string gfxexport = "gfxexport.exe";
             string gfxFileName = Path.GetFileNameWithoutExtension(inputPath);
@@ -16,7 +16,7 @@ namespace G2GFxDataTool
                 FileName = gfxexport,
                 Arguments = $"\"{inputPath}\" -d {tempFolderPath} -list -lwr -i DDS",
                 CreateNoWindow = true,
-                RedirectStandardOutput = false,
+                RedirectStandardOutput = true,
                 UseShellExecute = false
             };
 
@@ -24,6 +24,10 @@ namespace G2GFxDataTool
             {
                 using (Process process = Process.Start(startInfo))
                 {
+                    if (verbose)
+                    {
+                        Console.WriteLine(process.StandardOutput.ReadToEnd());
+                    }
                     process.WaitForExit();
                 }
             }
@@ -72,11 +76,21 @@ namespace G2GFxDataTool
 
             Program.logScaleformGFxPaths.Add(assemblyPathHash + ".GFXF," + assemblyPath);
 
+            if (verbose)
+            {
+                Console.WriteLine("Saving GFXF file as '" + Path.Combine(outputPath, assemblyPathHash + ".GFXF'"));
+            }
+
             File.WriteAllBytes(Path.Combine(outputPath, assemblyPathHash + ".GFXF"), s_ResourceMem);
 
             // Cleanup temp files
             try
             {
+                if (verbose)
+                {
+                    Console.WriteLine("\r\nCleaning up temporary files:\r\n" + gfxFile + "\r\n" + Path.Combine(tempFolderPath, gfxFileName + ".lst"));
+                }
+
                 File.Delete(gfxFile);
 
                 File.Delete(Path.Combine(tempFolderPath, gfxFileName + ".lst"));
@@ -86,6 +100,10 @@ namespace G2GFxDataTool
                     string texturePath = Path.Combine(tempFolderPath, textureFileName);
                     if (File.Exists(texturePath))
                     {
+                        if (verbose)
+                        {
+                            Console.WriteLine(texturePath);
+                        }
                         File.Delete(texturePath);
                     }
                 }
