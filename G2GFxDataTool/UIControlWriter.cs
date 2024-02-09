@@ -42,7 +42,7 @@ namespace G2GFxDataTool
             public int m_nPropertyId { get; set; } = 0;
         }
 
-        internal static void WriteUIControl(string inputPath, string outputPath, bool verbose)
+        internal static void WriteUIControl(string inputPath, string outputPath, string baseAssemblyPath, bool verbose)
         {
             var definitions = ParseSWF.ParseAS(inputPath);
 
@@ -108,8 +108,10 @@ namespace G2GFxDataTool
                     data.m_aProperties.Add(properties);
                 }
 
-                string uictAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entitytype";
-                string uicbAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entityblueprint";
+                //string uictAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entitytype";
+                //string uicbAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entityblueprint";
+                string uictAssemblyPath = "[assembly:" + baseAssemblyPath + Path.GetFileNameWithoutExtension(inputPath) + ".swf?/" + definition.className + ".uic].pc_entitytype";
+                string uicbAssemblyPath = "[assembly:" + baseAssemblyPath + Path.GetFileNameWithoutExtension(inputPath) + ".swf?/" + definition.className + ".uic].pc_entityblueprint";
 
                 string uictAssemblyPathHash = Helpers.ConvertStringtoMD5(uictAssemblyPath);
                 string uicbAssemblyPathHash = Helpers.ConvertStringtoMD5(uicbAssemblyPath);

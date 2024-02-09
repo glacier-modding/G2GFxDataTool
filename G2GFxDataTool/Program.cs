@@ -33,12 +33,12 @@ namespace G2GFxDataTool
                                 string ext = Path.GetExtension(file).ToLower();
                                 if (ext == ".swf")
                                 {
-                                    ScaleformGFxWriter.WriteScaleformGfX(file, options.outputPath, options.gfxexportPath, options.verbose);
-                                    UIControlWriter.WriteUIControl(file, options.outputPath, options.verbose);
+                                    ScaleformGFxWriter.WriteScaleformGfX(file, options.outputPath, options.gfxexportPath, options.baseAssemblyPath, options.verbose);
+                                    UIControlWriter.WriteUIControl(file, options.outputPath, options.baseAssemblyPath, options.verbose);
                                 }
                                 if (ext == ".gfx")
                                 {
-                                    UIControlWriter.WriteUIControl(file, options.outputPath, options.verbose);
+                                    UIControlWriter.WriteUIControl(file, options.outputPath, options.baseAssemblyPath, options.verbose);
                                 }
                             }
                         }
@@ -47,12 +47,12 @@ namespace G2GFxDataTool
                             string ext = Path.GetExtension(options.inputPath);
                             if (ext == ".swf")
                             {
-                                ScaleformGFxWriter.WriteScaleformGfX(options.inputPath, options.outputPath, options.gfxexportPath, options.verbose);
-                                UIControlWriter.WriteUIControl(options.inputPath, options.outputPath, options.verbose);
+                                ScaleformGFxWriter.WriteScaleformGfX(options.inputPath, options.outputPath, options.gfxexportPath, options.baseAssemblyPath, options.verbose);
+                                UIControlWriter.WriteUIControl(options.inputPath, options.outputPath, options.baseAssemblyPath, options.verbose);
                             }
                             if (ext == ".gfx")
                             {
-                                UIControlWriter.WriteUIControl(options.inputPath, options.outputPath, options.verbose);
+                                UIControlWriter.WriteUIControl(options.inputPath, options.outputPath, options.baseAssemblyPath, options.verbose);
                             }
                         }
                     }
