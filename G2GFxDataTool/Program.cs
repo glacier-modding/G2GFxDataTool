@@ -30,10 +30,14 @@ namespace G2GFxDataTool
                         {
                             foreach (var file in Directory.GetFiles(options.inputPath))
                             {
-                                string ext = Path.GetExtension(file);
+                                string ext = Path.GetExtension(file).ToLower();
                                 if (ext == ".swf")
                                 {
                                     ScaleformGFxWriter.WriteScaleformGfX(file, options.outputPath, options.gfxexportPath, options.verbose);
+                                    UIControlWriter.WriteUIControl(file, options.outputPath, options.verbose);
+                                }
+                                if (ext == ".gfx")
+                                {
                                     UIControlWriter.WriteUIControl(file, options.outputPath, options.verbose);
                                 }
                             }
@@ -44,6 +48,10 @@ namespace G2GFxDataTool
                             if (ext == ".swf")
                             {
                                 ScaleformGFxWriter.WriteScaleformGfX(options.inputPath, options.outputPath, options.gfxexportPath, options.verbose);
+                                UIControlWriter.WriteUIControl(options.inputPath, options.outputPath, options.verbose);
+                            }
+                            if (ext == ".gfx")
+                            {
                                 UIControlWriter.WriteUIControl(options.inputPath, options.outputPath, options.verbose);
                             }
                         }
