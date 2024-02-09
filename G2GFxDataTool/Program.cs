@@ -44,7 +44,7 @@ namespace G2GFxDataTool
                         }
                         else
                         {
-                            string ext = Path.GetExtension(options.inputPath);
+                            string ext = Path.GetExtension(options.inputPath).ToLower();
                             if (ext == ".swf")
                             {
                                 ScaleformGFxWriter.WriteScaleformGfX(options.inputPath, options.outputPath, options.gfxexportPath, options.baseAssemblyPath, options.verbose);
