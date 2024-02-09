@@ -2,19 +2,28 @@
 G2GFxDataTool is a tool for generating GFXF files for the Glacier 2 engine (UICT/UICB support is planned).
 
 ## Usage
-Requires a copy of [GFxExport v4.01](https://files.hitmods.com/gfxexport-4.01-4.5.30.zip).
+Requires a copy of GFxExport which can be found [here](https://files.hitmods.com) (v4.01 for SDK v4.6.34 recommended).
 
 ```
 G2GFxDataTool 1.0.0
 Copyright (C) Glacier 2 Modding Organisation
 
-  -i, --input       Required. Path to the SWF file.
+  -i, --input                 Required. Path to the SWF file or directory containing SWF files.
 
-  -o, --output      Required. Path to output files.
+  -o, --output                Path to output the files (defaults to the current working directory).
 
-  -l, --licenses    Prints license information for G2GFxDataTool and third party libraries that are used.
+  -b, --base-assembly-path    Base assembly path (defaults to /ui/controls/).
 
-  --help            Display this help screen.
+  -g, --gfxexport             Path to gfxexport.exe (defaults to "gfxexport.exe").
 
-  --version         Display version information.
+  -s, --save-paths            Saves Scaleform GFx and UIControl paths to scaleformgfx.txt and uicontrol.txt text files
+                              in the output directory.
+
+  -v, --verbose               Sets output to verbose messages mode.
+
+  -l, --licenses              Prints license information for G2GFxDataTool and third party libraries that are used.
+
+  --help                      Display this help screen.
+
+  --version                   Display version information.
 ```
