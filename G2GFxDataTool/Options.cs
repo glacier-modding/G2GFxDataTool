@@ -10,6 +10,9 @@ namespace G2GFxDataTool
         [Option('o', "output", SetName = "export", Required = false, HelpText = "Path to output the files (defaults to the current working directory).")]
         public string outputPath { get; set; } = Path.Combine(Directory.GetCurrentDirectory(), "output");
 
+        [Option('g', "gfxexport", SetName = "export", Required = false, HelpText = "Path to gfxexport.exe (defaults to \"gfxexport.exe\").")]
+        public string gfxexportPath { get; set; } = "gfxexport.exe";
+
         [Option('s', "save-paths", SetName = "export", Required = false, HelpText = "Saves Scaleform GFx and UIControl paths to scaleformgfx.txt and uicontrol.txt text files in the output directory.")]
         public bool savePaths { get; set; }
 

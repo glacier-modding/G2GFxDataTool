@@ -5,15 +5,16 @@ namespace G2GFxDataTool
 {
     internal class ScaleformGFxWriter
     {
-        internal static void WriteScaleformGfX(string inputPath, string outputPath, bool verbose)
+        internal static void WriteScaleformGfX(string inputPath, string outputPath, string gfxexportPath, bool verbose)
         {
-            string gfxexport = "gfxexport.exe";
             string gfxFileName = Path.GetFileNameWithoutExtension(inputPath);
             string tempFolderPath = Path.GetTempPath();
 
+            Console.WriteLine(gfxexportPath);
+
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = gfxexport,
+                FileName = gfxexportPath,
                 Arguments = $"\"{inputPath}\" -d {tempFolderPath} -list -lwr -i DDS",
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,
