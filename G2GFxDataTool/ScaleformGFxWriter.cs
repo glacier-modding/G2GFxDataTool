@@ -10,8 +10,6 @@ namespace G2GFxDataTool
             string gfxFileName = Path.GetFileNameWithoutExtension(inputPath);
             string tempFolderPath = Path.GetTempPath();
 
-            Console.WriteLine(gfxexportPath);
-
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = gfxexportPath,
