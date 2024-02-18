@@ -8,6 +8,7 @@ namespace G2GFxDataTool
         {
             { "void", "E_ATTRIBUTE_TYPE_VOID" },
             { "int", "E_ATTRIBUTE_TYPE_INT" },
+            { "uint", "E_ATTRIBUTE_TYPE_INT" },
             { "Number", "E_ATTRIBUTE_TYPE_FLOAT" },
             { "String", "E_ATTRIBUTE_TYPE_STRING" },
             { "Boolean", "E_ATTRIBUTE_TYPE_BOOL" },
@@ -16,35 +17,28 @@ namespace G2GFxDataTool
 
         internal class UICBData
         {
-            public List<Pin> m_aPins { get; set; }
-            public List<Property> m_aProperties { get; set; }
+            public List<Attributes> m_aAttributes { get; set; }
+            public List<string> m_aSpecialMethods { get; set; }
 
             public UICBData()
             {
-                m_aPins = new List<Pin>();
-                m_aProperties = new List<Property>();
+                m_aAttributes = new List<Attributes>();
+                m_aSpecialMethods = new List<string>();
             }
         }
 
-        internal class Pin
+        internal class Attributes
         {
-            public string m_eKind { get; set; } = "E_ATTRIBUTE_KIND_INPUT_PIN";
+            public string m_eKind { get; set; }
             public string m_eType { get; set; }
             public string m_sName { get; set; }
         }
 
-        internal class Property
-        {
-            public string m_eKind { get; set; } = "E_ATTRIBUTE_KIND_PROPERTY";
-            public string m_eType { get; set; }
-            public string m_sName { get; set; }
-            public int m_nPropertyOffset { get; set; } = 0;
-            public int m_nPropertyId { get; set; } = 0;
-        }
-
-        internal static void WriteUIControl(string inputPath, string outputPath, string baseAssemblyPath, bool verbose)
+        internal static void WriteUIControl(string inputPath, string outputPath, string baseAssemblyPath, ResourceLib.Game game, bool verbose)
         {
             var definitions = ParseSWF.ParseAS(inputPath);
+
+            string[] SPECIAL_METHODS = ["onAttached", "onChildrenAttached", "onSetData", "onSetSize", "onSetViewport", "onSetVisible", "onSetSelected", "onSetFocused", "onSelectedIndexChanged", "Count"];
 
             foreach (var definition in definitions)
             {
@@ -57,13 +51,26 @@ namespace G2GFxDataTool
 
                 foreach (var method in definition.classMethods)
                 {
+                    if (SPECIAL_METHODS.Contains(method.methodName))
+                    {
+                        if (!data.m_aSpecialMethods.Contains(method.methodName))
+                        {
+                            data.m_aSpecialMethods.Add(method.methodName);
+
+                            if (verbose)
+                            {
+                                Console.WriteLine("\tFound special method: " + method.methodName);
+                            }
+                        }
+                        continue;
+                    }
 
                     if (method.argumentTypes.Count > 1 || (method.argumentTypes.Count == 1 && !typeMapping.ContainsKey(method.argumentTypes[0])))
                     {
                         continue;
                     }
 
-                    Pin pins = new Pin
+                    Attributes pins = new Attributes
                     {
                         m_sName = method.methodName,
                         m_eKind = "E_ATTRIBUTE_KIND_INPUT_PIN",
@@ -86,18 +93,16 @@ namespace G2GFxDataTool
                         Console.WriteLine("\tFound pin: " + pins.m_sName + " type: " + pins.m_eType + " kind: " + pins.m_eKind);
                     }
 
-                    data.m_aPins.Add(pins);
+                    data.m_aAttributes.Add(pins);
                 }
 
                 foreach (var property in definition.classProperties)
                 {
-                    Property properties = new Property
+                    Attributes properties = new Attributes
                     {
                         m_sName = property.classPropertyName,
                         m_eKind = "E_ATTRIBUTE_KIND_PROPERTY",
                         m_eType = typeMapping.GetValueOrDefault(property.classPropertyType),
-                        m_nPropertyOffset = 0,
-                        m_nPropertyId = 0
                     };
 
                     if (verbose)
@@ -105,7 +110,7 @@ namespace G2GFxDataTool
                         Console.WriteLine("\tFound property: " + property.classPropertyName + " type: " + property.classPropertyType);
                     }
 
-                    data.m_aProperties.Add(properties);
+                    data.m_aAttributes.Add(properties);
                 }
 
                 //string uictAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entitytype";
@@ -143,14 +148,14 @@ namespace G2GFxDataTool
 
                 MetaFiles.MetaData uicbMetaData = new MetaFiles.MetaData();
                 uicbMetaData.hashValue = uicbAssemblyPathHash;
-                uictMetaData.hashOffset = 22219511;
-                uictMetaData.hashSize = 2147483716;
-                uictMetaData.hashResourceType = "UICB";
-                uictMetaData.hashReferenceTableSize = 13;
-                uictMetaData.hashReferenceTableDummy = 0;
-                uictMetaData.hashSizeFinal = 114;
-                uictMetaData.hashSizeInMemory = 62;
-                uictMetaData.hashSizeInVideoMemory = 4294967295;
+                uicbMetaData.hashOffset = 22219511;
+                uicbMetaData.hashSize = 2147483716;
+                uicbMetaData.hashResourceType = "UICB";
+                uicbMetaData.hashReferenceTableSize = 13;
+                uicbMetaData.hashReferenceTableDummy = 0;
+                uicbMetaData.hashSizeFinal = 114;
+                uicbMetaData.hashSizeInMemory = 62;
+                uicbMetaData.hashSizeInVideoMemory = 4294967295;
                 uicbMetaData.hashReferenceData.Add(new
                 {
                     hash = "[modules:/zuicontrolentity.class].pc_entityblueprint",
@@ -162,6 +167,9 @@ namespace G2GFxDataTool
 
                 string jsonData = JsonSerializer.Serialize(data);
 
+                var s_Generator = new ResourceLib.ResourceGenerator("UICB", game);
+                var s_ResourceMem = s_Generator.FromJsonStringToResourceMem(jsonData);
+
                 if (verbose)
                 {
                     Console.WriteLine("Saving UICT file as '" + Path.Combine(outputPath, uictAssemblyPathHash + ".UICT"));
@@ -171,10 +179,10 @@ namespace G2GFxDataTool
 
                 if (verbose)
                 {
-                    Console.WriteLine("Saving UICB file as '" + Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB.json"));
+                    Console.WriteLine("Saving UICB file as '" + Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB"));
                 }
 
-                File.WriteAllText(Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB.json"), jsonData);
+                File.WriteAllBytes(Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB"), s_ResourceMem);
             }
         }
     }
