@@ -5,7 +5,7 @@ namespace G2GFxDataTool
 {
     internal class ScaleformGFxWriter
     {
-        internal static void WriteScaleformGfX(string inputPath, string outputPath, string gfxexportPath, string baseAssemblyPath, bool verbose)
+        internal static void WriteScaleformGfX(string inputPath, string outputPath, string gfxexportPath, string baseAssemblyPath, ResourceLib.Game game, bool verbose)
         {
             string gfxFileName = Path.GetFileNameWithoutExtension(inputPath);
             string tempFolderPath = Path.GetTempPath();
@@ -15,7 +15,7 @@ namespace G2GFxDataTool
                 FileName = gfxexportPath,
                 Arguments = $"\"{inputPath}\" -d {tempFolderPath} -list -lwr -i DDS",
                 CreateNoWindow = true,
-                RedirectStandardOutput = true,
+                RedirectStandardOutput = verbose,
                 UseShellExecute = false
             };
 
@@ -67,7 +67,7 @@ namespace G2GFxDataTool
 
             string gfxfJSON = JsonSerializer.Serialize(jsonOutput);
 
-            var s_Generator = new ResourceLib.ResourceGenerator("GFXF", ResourceLib.Game.Hitman3);
+            var s_Generator = new ResourceLib.ResourceGenerator("GFXF", game);
             var s_ResourceMem = s_Generator.FromJsonStringToResourceMem(gfxfJSON);
 
             //string assemblyPath = Helpers.AssemblyPathDeriver(inputPath, "swf");
