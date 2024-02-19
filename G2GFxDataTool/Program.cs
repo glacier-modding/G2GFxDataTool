@@ -6,6 +6,7 @@ namespace G2GFxDataTool
     {
         public static HashSet<string> logUIControlPaths = new HashSet<string>();
         public static HashSet<string> logScaleformGFxPaths = new HashSet<string>();
+        public static HashSet<string> logAspectPaths = new HashSet<string>();
 
         static void Main(string[] args)
         {
@@ -66,6 +67,7 @@ namespace G2GFxDataTool
                     {
                         File.WriteAllLines(Path.Combine(options.outputPath, "uicontrol.txt"), logUIControlPaths);
                         File.WriteAllLines(Path.Combine(options.outputPath, "scaleformgfx.txt"), logScaleformGFxPaths);
+                        File.WriteAllLines(Path.Combine(options.outputPath, "aspect.txt"), logAspectPaths);
                     }
 
                 });

@@ -165,6 +165,72 @@ namespace G2GFxDataTool
                 MetaFiles.GenerateMeta(ref uictMetaData, Path.Combine(outputPath, uictAssemblyPathHash + ".UICT.meta.json"));
                 MetaFiles.GenerateMeta(ref uicbMetaData, Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB.meta.json"));
 
+                string asetAssemblyPath = "[assembly:/templates/aspectdummy.aspect]([assembly:" + baseAssemblyPath + Path.GetFileNameWithoutExtension(inputPath) + ".swf?/" + definition.className + ".uic].entitytype,[modules:/zuicontrollayoutlegacyaspect.class].entitytype).pc_entitytype";
+                string asebAssemblyPath = "[assembly:/templates/aspectdummy.aspect]([assembly:" + baseAssemblyPath + Path.GetFileNameWithoutExtension(inputPath) + ".swf?/" + definition.className + ".uic].entitytype,[modules:/zuicontrollayoutlegacyaspect.class].entitytype).pc_entityblueprint";
+
+                string asetAssemblyPathHash = Helpers.ConvertStringtoMD5(asetAssemblyPath);
+                string asebAssemblyPathHash = Helpers.ConvertStringtoMD5(asebAssemblyPath);
+
+                Program.logAspectPaths.Add(definition.className + ":");
+                Program.logAspectPaths.Add(asetAssemblyPathHash + ".ASET," + asetAssemblyPath);
+                Program.logAspectPaths.Add(asebAssemblyPathHash + ".ASEB," + asebAssemblyPath + "\r\n");
+
+                MetaFiles.MetaData asetMetaData = new MetaFiles.MetaData();
+                asetMetaData.hashValue = asetAssemblyPathHash;
+                asetMetaData.hashOffset = 28250980;
+                asetMetaData.hashSize = 2147483648;
+                asetMetaData.hashResourceType = "ASET";
+                asetMetaData.hashReferenceTableSize = 31;
+                asetMetaData.hashReferenceTableDummy = 0;
+                asetMetaData.hashSizeFinal = 12;
+                asetMetaData.hashSizeInMemory = 4294967295;
+                asetMetaData.hashSizeInVideoMemory = 4294967295;
+                asetMetaData.hashReferenceData.Add(new
+                {
+                    hash = uictAssemblyPath,
+                    flag = "1F"
+                });
+                asetMetaData.hashReferenceData.Add(new
+                {
+                    hash = "[modules:/zuicontrollayoutlegacyaspect.class].pc_entitytype",
+                    flag = "1F"
+                });
+                asetMetaData.hashReferenceData.Add(new
+                {
+                    hash = asebAssemblyPath,
+                    flag = "1F"
+                });
+
+                MetaFiles.MetaData asebMetaData = new MetaFiles.MetaData();
+                asebMetaData.hashValue = asebAssemblyPathHash;
+                asebMetaData.hashOffset = 28250980;
+                asebMetaData.hashSize = 2147483648;
+                asebMetaData.hashResourceType = "ASEB";
+                asebMetaData.hashReferenceTableSize = 31;
+                asebMetaData.hashReferenceTableDummy = 0;
+                asebMetaData.hashSizeFinal = 12;
+                asebMetaData.hashSizeInMemory = 4294967295;
+                asebMetaData.hashSizeInVideoMemory = 4294967295;
+                asebMetaData.hashReferenceData.Add(new
+                {
+                    hash = uicbAssemblyPath,
+                    flag = "1F"
+                });
+                asebMetaData.hashReferenceData.Add(new
+                {
+                    hash = "[modules:/zuicontrollayoutlegacyaspect.class].pc_entityblueprint",
+                    flag = "1F"
+                });
+
+                MetaFiles.GenerateMeta(ref asetMetaData, Path.Combine(outputPath, asetAssemblyPathHash + ".ASET.meta.json"));
+                MetaFiles.GenerateMeta(ref asebMetaData, Path.Combine(outputPath, asebAssemblyPathHash + ".ASEB.meta.json"));
+
+                byte[] asetBytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00 }; // no point calculating this based off how many references hashReferenceData has since it'll always be the same
+                File.WriteAllBytes(Path.Combine(outputPath, asetAssemblyPathHash + ".ASET"), asetBytes);
+
+                byte[] asebBytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00 };
+                File.WriteAllBytes(Path.Combine(outputPath, asebAssemblyPathHash + ".ASEB"), asebBytes);
+
                 string jsonData = JsonSerializer.Serialize(data);
 
                 var s_Generator = new ResourceLib.ResourceGenerator("UICB", game);
