@@ -19,6 +19,9 @@ Copyright (C) Glacier 2 Modding Organisation
   -s, --save-paths            Saves Scaleform GFx and UIControl paths to scaleformgfx.txt and uicontrol.txt text files
                               in the output directory.
 
+  --game                      Game version. Possible options are Hitman2016, Hitman2 and Hitman3 (defaults to Hitman3).
+                              Note: these are case sensitive.
+
   -v, --verbose               Sets output to verbose messages mode.
 
   -l, --licenses              Prints license information for G2GFxDataTool and third party libraries that are used.
@@ -27,3 +30,6 @@ Copyright (C) Glacier 2 Modding Organisation
 
   --version                   Display version information.
 ```
+
+## Example Usage
+.\G2GFxDataTool.exe -i "InputPath\HealthBar.swf" -o "OutputPath" -v -s
