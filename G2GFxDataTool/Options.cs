@@ -16,7 +16,7 @@ namespace G2GFxDataTool
         [Option('g', "gfxexport", SetName = "export", Required = false, HelpText = "Path to gfxexport.exe (defaults to \"gfxexport.exe\").")]
         public string gfxexportPath { get; set; } = "gfxexport.exe";
 
-        [Option('s', "save-paths", SetName = "export", Required = false, HelpText = "Saves Scaleform GFx and UIControl paths to scaleformgfx.txt and uicontrol.txt text files in the output directory.")]
+        [Option('s', "save-paths", SetName = "export", Required = false, HelpText = "Saves Scaleform GFx, UIControl and aspect paths to scaleformgfx.txt, uicontrol.txt and aspect.txt text files in the output directory.")]
         public bool savePaths { get; set; }
 
         [Option("game", SetName = "export", Required = false, HelpText = "Game version. Possible options are Hitman2016, Hitman2 and Hitman3 (defaults to Hitman3).\r\nNote: these are case sensitive.")]
