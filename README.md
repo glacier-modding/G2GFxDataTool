@@ -32,4 +32,43 @@ Copyright (C) Glacier 2 Modding Organisation
 ```
 
 ## Example Usage
-.\G2GFxDataTool.exe -i "InputPath\HealthBar.swf" -o "OutputPath" -v -s
+```
+.\G2GFxDataTool.exe -i "bin\HealthBar.swf" -o "..\content\chunk0\scaleform\" -v -s
+```
+
+## Example Output
+```
+GFxExport v4.01 for SDK v4.6.34, (c) 2006-2011 Scaleform Corporation
+This program uses:
+        NVIDIA Texture Tools 2, (c) 2007 NVIDIA Corporation
+        PVRTexLib (c) 2010, Imagination Technologies Ltd.
+
+Loading SWF file: bin\HealthBar.swf - Processing 0 images -
+100%
+Total images written: 0
+Saving list of generated files as 'C:\Users\Josh\AppData\Local\Temp\HealthBar.lst'
+Saving stripped SWF file as 'C:\Users\Josh\AppData\Local\Temp\healthbar.gfx'
+
+Saving GFXF file as '..\content\chunk0\scaleform\001D0947392E2DD6.GFXF'
+
+Cleaning up temporary files:
+C:\Users\Josh\AppData\Local\Temp\HealthBar.gfx
+C:\Users\Josh\AppData\Local\Temp\HealthBar.lst
+
+Found class: common.BaseControl:
+Saving UICT file as '..\content\chunk0\scaleform\00DE44EF8E598769.UICT
+Saving UICB file as '..\content\chunk0\scaleform\00FB1120C3B2DF8A.UICB
+
+Found class: healthbar.HealthBar:
+        Found pin: RequestData type: E_ATTRIBUTE_TYPE_VOID kind: E_ATTRIBUTE_KIND_OUTPUT_PIN
+        Found pin: MainColours type: E_ATTRIBUTE_TYPE_OBJECT kind: E_ATTRIBUTE_KIND_INPUT_PIN
+        Found pin: SecondaryColours type: E_ATTRIBUTE_TYPE_OBJECT kind: E_ATTRIBUTE_KIND_INPUT_PIN
+        Found pin: SetBarHealth type: E_ATTRIBUTE_TYPE_FLOAT kind: E_ATTRIBUTE_KIND_INPUT_PIN
+        Found pin: SetTextHealth type: E_ATTRIBUTE_TYPE_FLOAT kind: E_ATTRIBUTE_KIND_INPUT_PIN
+        Found pin: SetInfected type: E_ATTRIBUTE_TYPE_BOOL kind: E_ATTRIBUTE_KIND_INPUT_PIN
+        Found property: DebugMode type: Boolean
+        Found property: Height type: Number
+        Found property: Width type: Number
+Saving UICT file as '..\content\chunk0\scaleform\005E8CE7C12D96C2.UICT
+Saving UICB file as '..\content\chunk0\scaleform\003F45DD25EEE393.UICB
+```
