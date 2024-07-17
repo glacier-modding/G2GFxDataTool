@@ -13,8 +13,8 @@ namespace G2GFxDataTool
         [Option('b', "base-assembly-path", SetName = "export", Required = false, HelpText = "Base assembly path (defaults to /ui/controls/).")]
         public string baseAssemblyPath { get; set; } = "/ui/controls/";
 
-        [Option('g', "gfxexport", SetName = "export", Required = false, HelpText = "Path to gfxexport.exe (defaults to \"gfxexport.exe\").")]
-        public string gfxexportPath { get; set; } = "gfxexport.exe";
+        [Option('g', "gfxexport", SetName = "export", Required = false, HelpText = "Path to gfxexport.exe (defaults to \"gfxexport.exe\" in the folder where G2GFxDataTool.exe is located).")]
+        public string gfxexportPath { get; set; } = AppDomain.CurrentDomain.BaseDirectory + "gfxexport.exe";
 
         [Option('s', "save-paths", SetName = "export", Required = false, HelpText = "Saves Scaleform GFx, UIControl and aspect paths to scaleformgfx.txt, uicontrol.txt and aspect.txt text files in the output directory.")]
         public bool savePaths { get; set; }

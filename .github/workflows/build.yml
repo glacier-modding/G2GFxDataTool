@@ -42,7 +42,7 @@ jobs:
           name: win-x64
 
       - name: Download ResourceTool
-        uses: robinraju/release-downloader@v1.9
+        uses: robinraju/release-downloader@v1.11
         with:
             repository: "OrfeasZ/ZHMTools"
             latest: true
