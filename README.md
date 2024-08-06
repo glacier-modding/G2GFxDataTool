@@ -1,5 +1,5 @@
 # G2GFxDataTool
-G2GFxDataTool is a tool for generating GFXF (ScaleformGFx) and UICT/UICB (UIControl) resources for the Glacier 2 engine utilising https://github.com/OrfeasZ/ZHMTools and SwfOp. 
+G2GFxDataTool is a tool for generating GFXF (ScaleformGFx) and UICT/UICB (UIControl) resources for the Glacier 2 engine utilising https://github.com/OrfeasZ/ZHMTools, SwfOp and GFxExport. 
 
 ## Usage
 Requires a copy of GFxExport which can be found [here](https://files.hitmods.com) (v4.01 for SDK v4.6.34 recommended).
