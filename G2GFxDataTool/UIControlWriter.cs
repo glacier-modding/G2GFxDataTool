@@ -225,10 +225,10 @@ namespace G2GFxDataTool
                 MetaFiles.GenerateMeta(ref asetMetaData, Path.Combine(outputPath, asetAssemblyPathHash + ".ASET.meta.json"));
                 MetaFiles.GenerateMeta(ref asebMetaData, Path.Combine(outputPath, asebAssemblyPathHash + ".ASEB.meta.json"));
 
-                byte[] asetBytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00 }; // no point calculating this based off how many references hashReferenceData has since it'll always be the same
+                byte[] asetBytes = Helpers.GenerateAspect(asetMetaData.hashReferenceData.Count());
                 File.WriteAllBytes(Path.Combine(outputPath, asetAssemblyPathHash + ".ASET"), asetBytes);
 
-                byte[] asebBytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00 };
+                byte[] asebBytes = Helpers.GenerateAspect(asebMetaData.hashReferenceData.Count());
                 File.WriteAllBytes(Path.Combine(outputPath, asebAssemblyPathHash + ".ASEB"), asebBytes);
 
                 string jsonData = JsonSerializer.Serialize(data);

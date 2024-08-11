@@ -23,42 +23,6 @@ namespace G2GFxDataTool
             return ioiHashsb.ToString();
         }
 
-        internal static string AssemblyPathDeriver(string inputPath, string resourceType)
-        {
-            string searchTerm = "\\construction\\";
-            int index = inputPath.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase);
-
-            if (index != -1)
-            {
-                string assemblyPath = inputPath.Substring(index + searchTerm.Length).Replace('\\', '/');
-
-                assemblyPath = "[assembly:/" + assemblyPath + "].pc_" + resourceType;
-
-                return assemblyPath.ToLower();
-            }
-
-            return inputPath + ".pc_" + resourceType;
-        }
-
-        internal static string UIControlPathDeriver(string inputPath, string className)
-        {
-            {
-                string searchTerm = "\\construction\\";
-                int index = inputPath.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase);
-
-                if (index != -1)
-                {
-                    string assemblyPath = inputPath.Substring(index + searchTerm.Length).Replace('\\', '/');
-
-                    assemblyPath = $"[assembly:/{assemblyPath}?/{className}.uic].pc_";
-
-                    return assemblyPath.ToLower();
-                }
-
-                return inputPath + ".pc_";
-            }
-        }
-
         internal static bool IsOutputPin(string methodName, out string pinName)
         {
             if (methodName.ToLower().StartsWith("send_"))
@@ -69,6 +33,18 @@ namespace G2GFxDataTool
 
             pinName = "";
             return false;
+        }
+
+        internal static byte[] GenerateAspect(int referenceCount)
+        {
+            byte[] bytes = new byte[referenceCount * 4];
+
+            for (int i = 0; i < referenceCount; i++)
+            {
+                bytes[i * 4] = (byte)i;
+            }
+
+            return bytes;
         }
 
     }
