@@ -15,16 +15,13 @@ namespace G2GFxDataTool
             parser
                 .WithParsed(options =>
                 {
-                    if (options.outputPath != null)
+                    if (!string.IsNullOrEmpty(options.inputPath) && Path.Exists(options.inputPath))
                     {
                         if (!Directory.Exists(options.outputPath))
                         {
                             Directory.CreateDirectory(options.outputPath);
                         }
-                    }
 
-                    if (options.inputPath != null)
-                    {
                         FileAttributes attr = File.GetAttributes(options.inputPath);
 
                         if (attr.HasFlag(FileAttributes.Directory))

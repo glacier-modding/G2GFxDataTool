@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 
 namespace G2GFxDataTool
@@ -28,6 +29,12 @@ namespace G2GFxDataTool
                         Console.WriteLine(process.StandardOutput.ReadToEnd());
                     }
                     process.WaitForExit();
+                    
+                    if (process.ExitCode != 0)
+                    {
+                        Console.WriteLine("GFxExport failed to run. Please install Microsoft Visual C++ 2010 Redistributable x64 from https://www.microsoft.com/en-au/download/details.aspx?id=26999");
+                        Environment.Exit(process.ExitCode);
+                    }
                 }
             }
             catch (Exception ex)
@@ -45,7 +52,7 @@ namespace G2GFxDataTool
 
             foreach (var textureFileName in textureFileNamesList)
             {
-                if (textureFileName.EndsWith(".gfx")) // Some versions of GFxExport may include the .gfx file itself in the list file.
+                if (textureFileName.EndsWith(".gfx")) // Some versions of GFxExport include the .gfx file itself in the list file.
                 {
                     continue;
                 }
@@ -75,6 +82,14 @@ namespace G2GFxDataTool
             string assemblyPathHash = Helpers.ConvertStringtoMD5(assemblyPath);
 
             Program.logScaleformGFxPaths.Add(assemblyPathHash + ".GFXF," + assemblyPath);
+
+            MetaFiles.MetaData gfxfMetaData = new MetaFiles.MetaData();
+            gfxfMetaData.id = assemblyPathHash;
+            gfxfMetaData.type = "GFXF";
+            gfxfMetaData.compressed = true;
+            gfxfMetaData.scrambled = true;
+
+            MetaFiles.GenerateMeta(ref gfxfMetaData, Path.Combine(outputPath, assemblyPathHash + ".GFXF.metadata.json"));
 
             if (verbose)
             {

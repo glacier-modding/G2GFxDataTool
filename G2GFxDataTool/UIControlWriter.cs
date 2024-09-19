@@ -113,8 +113,6 @@ namespace G2GFxDataTool
                     data.m_aAttributes.Add(properties);
                 }
 
-                //string uictAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entitytype";
-                //string uicbAssemblyPath = Helpers.UIControlPathDeriver(inputPath, definition.className) + "entityblueprint";
                 string uictAssemblyPath = "[assembly:" + baseAssemblyPath + Path.GetFileNameWithoutExtension(inputPath) + ".swf?/" + definition.className + ".uic].pc_entitytype";
                 string uicbAssemblyPath = "[assembly:" + baseAssemblyPath + Path.GetFileNameWithoutExtension(inputPath) + ".swf?/" + definition.className + ".uic].pc_entityblueprint";
 
@@ -126,44 +124,34 @@ namespace G2GFxDataTool
                 Program.logUIControlPaths.Add(uicbAssemblyPathHash + ".UICB," + uicbAssemblyPath + "\r\n");
 
                 MetaFiles.MetaData uictMetaData = new MetaFiles.MetaData();
-                uictMetaData.hashValue = uictAssemblyPathHash;
-                uictMetaData.hashOffset = 22219579;
-                uictMetaData.hashSize = 2147483648;
-                uictMetaData.hashResourceType = "UICT";
-                uictMetaData.hashReferenceTableSize = 22;
-                uictMetaData.hashReferenceTableDummy = 0;
-                uictMetaData.hashSizeFinal = 0;
-                uictMetaData.hashSizeInMemory = 4294967295;
-                uictMetaData.hashSizeInVideoMemory = 4294967295;
-                uictMetaData.hashReferenceData.Add(new
+                uictMetaData.id = uictAssemblyPathHash;
+                uictMetaData.type = "UICT";
+                uictMetaData.compressed = false;
+                uictMetaData.scrambled = true;
+                uictMetaData.references.Add(new
                 {
-                    hash = "[modules:/zuicontrolentity.class].pc_entitytype",
-                    flag = "1F"
+                    resource = "002C4526CC9753E6",
+                    type = "install"
                 });
-                uictMetaData.hashReferenceData.Add(new
+                uictMetaData.references.Add(new
                 {
-                    hash = uicbAssemblyPath,
-                    flag = "1F"
+                    resource = uicbAssemblyPathHash,
+                    type = "install"
                 });
 
                 MetaFiles.MetaData uicbMetaData = new MetaFiles.MetaData();
-                uicbMetaData.hashValue = uicbAssemblyPathHash;
-                uicbMetaData.hashOffset = 22219511;
-                uicbMetaData.hashSize = 2147483716;
-                uicbMetaData.hashResourceType = "UICB";
-                uicbMetaData.hashReferenceTableSize = 13;
-                uicbMetaData.hashReferenceTableDummy = 0;
-                uicbMetaData.hashSizeFinal = 114;
-                uicbMetaData.hashSizeInMemory = 62;
-                uicbMetaData.hashSizeInVideoMemory = 4294967295;
-                uicbMetaData.hashReferenceData.Add(new
+                uicbMetaData.id = uicbAssemblyPathHash;
+                uicbMetaData.type = "UICB";
+                uicbMetaData.compressed = true;
+                uicbMetaData.scrambled = true;
+                uicbMetaData.references.Add(new
                 {
-                    hash = "[modules:/zuicontrolentity.class].pc_entityblueprint",
-                    flag = "1F"
+                    resource = "00578D925459143F",
+                    type = "install"
                 });
 
-                MetaFiles.GenerateMeta(ref uictMetaData, Path.Combine(outputPath, uictAssemblyPathHash + ".UICT.meta.json"));
-                MetaFiles.GenerateMeta(ref uicbMetaData, Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB.meta.json"));
+                MetaFiles.GenerateMeta(ref uictMetaData, Path.Combine(outputPath, uictAssemblyPathHash + ".UICT.metadata.json"));
+                MetaFiles.GenerateMeta(ref uicbMetaData, Path.Combine(outputPath, uicbAssemblyPathHash + ".UICB.metadata.json"));
 
                 string asetAssemblyPath = "[assembly:/templates/aspectdummy.aspect]([assembly:" + baseAssemblyPath + Path.GetFileNameWithoutExtension(inputPath) + ".swf?/" + definition.className + ".uic].entitytype,[modules:/zuicontrollayoutlegacyaspect.class].entitytype).pc_entitytype";
                 string asebAssemblyPath = "[assembly:/templates/aspectdummy.aspect]([assembly:" + baseAssemblyPath + Path.GetFileNameWithoutExtension(inputPath) + ".swf?/" + definition.className + ".uic].entitytype,[modules:/zuicontrollayoutlegacyaspect.class].entitytype).pc_entityblueprint";
@@ -176,59 +164,45 @@ namespace G2GFxDataTool
                 Program.logAspectPaths.Add(asebAssemblyPathHash + ".ASEB," + asebAssemblyPath + "\r\n");
 
                 MetaFiles.MetaData asetMetaData = new MetaFiles.MetaData();
-                asetMetaData.hashValue = asetAssemblyPathHash;
-                asetMetaData.hashOffset = 28250980;
-                asetMetaData.hashSize = 2147483648;
-                asetMetaData.hashResourceType = "ASET";
-                asetMetaData.hashReferenceTableSize = 31;
-                asetMetaData.hashReferenceTableDummy = 0;
-                asetMetaData.hashSizeFinal = 12;
-                asetMetaData.hashSizeInMemory = 4294967295;
-                asetMetaData.hashSizeInVideoMemory = 4294967295;
-                asetMetaData.hashReferenceData.Add(new
+                asetMetaData.id = asetAssemblyPathHash;
+                asetMetaData.type = "ASET";
+                asetMetaData.references.Add(new
                 {
-                    hash = uictAssemblyPath,
-                    flag = "1F"
+                    resource = uictAssemblyPathHash,
+                    type = "install"
                 });
-                asetMetaData.hashReferenceData.Add(new
+                asetMetaData.references.Add(new
                 {
-                    hash = "[modules:/zuicontrollayoutlegacyaspect.class].pc_entitytype",
-                    flag = "1F"
+                    resource = "002F0C25E6E34D14",
+                    type = "install"
                 });
-                asetMetaData.hashReferenceData.Add(new
+                asetMetaData.references.Add(new
                 {
-                    hash = asebAssemblyPath,
-                    flag = "1F"
+                    resource = asebAssemblyPathHash,
+                    type = "install"
                 });
 
                 MetaFiles.MetaData asebMetaData = new MetaFiles.MetaData();
-                asebMetaData.hashValue = asebAssemblyPathHash;
-                asebMetaData.hashOffset = 28250980;
-                asebMetaData.hashSize = 2147483648;
-                asebMetaData.hashResourceType = "ASEB";
-                asebMetaData.hashReferenceTableSize = 31;
-                asebMetaData.hashReferenceTableDummy = 0;
-                asebMetaData.hashSizeFinal = 12;
-                asebMetaData.hashSizeInMemory = 4294967295;
-                asebMetaData.hashSizeInVideoMemory = 4294967295;
-                asebMetaData.hashReferenceData.Add(new
+                asebMetaData.id = asebAssemblyPathHash;
+                asebMetaData.type = "ASEB";
+                asebMetaData.references.Add(new
                 {
-                    hash = uicbAssemblyPath,
-                    flag = "1F"
+                    resource = uicbAssemblyPathHash,
+                    type = "install"
                 });
-                asebMetaData.hashReferenceData.Add(new
+                asebMetaData.references.Add(new
                 {
-                    hash = "[modules:/zuicontrollayoutlegacyaspect.class].pc_entityblueprint",
-                    flag = "1F"
+                    resource = "00B388AB33E1DAC0",
+                    type = "install"
                 });
 
-                MetaFiles.GenerateMeta(ref asetMetaData, Path.Combine(outputPath, asetAssemblyPathHash + ".ASET.meta.json"));
-                MetaFiles.GenerateMeta(ref asebMetaData, Path.Combine(outputPath, asebAssemblyPathHash + ".ASEB.meta.json"));
+                MetaFiles.GenerateMeta(ref asetMetaData, Path.Combine(outputPath, asetAssemblyPathHash + ".ASET.metadata.json"));
+                MetaFiles.GenerateMeta(ref asebMetaData, Path.Combine(outputPath, asebAssemblyPathHash + ".ASEB.metadata.json"));
 
-                byte[] asetBytes = Helpers.GenerateAspect(asetMetaData.hashReferenceData.Count());
+                byte[] asetBytes = Helpers.GenerateAspect(asetMetaData.references.Count());
                 File.WriteAllBytes(Path.Combine(outputPath, asetAssemblyPathHash + ".ASET"), asetBytes);
 
-                byte[] asebBytes = Helpers.GenerateAspect(asebMetaData.hashReferenceData.Count());
+                byte[] asebBytes = Helpers.GenerateAspect(asebMetaData.references.Count());
                 File.WriteAllBytes(Path.Combine(outputPath, asebAssemblyPathHash + ".ASEB"), asebBytes);
 
                 string jsonData = JsonSerializer.Serialize(data);

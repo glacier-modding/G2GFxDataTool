@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "G2GFxDataTool": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \"C:\\Users\\Josh\\Games\\HITMAN3\\Simple Mod Framework\\Mods\\Notex.SimpleHealthBar\\actionscript\\bin\\HealthBar.swf\" -s -v"
+    }
+  }
+}
