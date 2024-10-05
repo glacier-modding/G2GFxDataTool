@@ -119,9 +119,9 @@ namespace G2GFxDataTool
                 string uictAssemblyPathHash = Helpers.ConvertStringtoMD5(uictAssemblyPath);
                 string uicbAssemblyPathHash = Helpers.ConvertStringtoMD5(uicbAssemblyPath);
 
-                Program.logUIControlPaths.Add(definition.className + ":");
-                Program.logUIControlPaths.Add(uictAssemblyPathHash + ".UICT," + uictAssemblyPath);
-                Program.logUIControlPaths.Add(uicbAssemblyPathHash + ".UICB," + uicbAssemblyPath + "\r\n");
+                Program.logPaths.Add("\t" + definition.className + ":");
+                Program.logPaths.Add("\t\t" + uictAssemblyPathHash + ".UICT," + uictAssemblyPath);
+                Program.logPaths.Add("\t\t" + uicbAssemblyPathHash + ".UICB," + uicbAssemblyPath);
 
                 MetaFiles.MetaData uictMetaData = new MetaFiles.MetaData();
                 uictMetaData.id = uictAssemblyPathHash;
@@ -130,7 +130,7 @@ namespace G2GFxDataTool
                 uictMetaData.scrambled = true;
                 uictMetaData.references.Add(new
                 {
-                    resource = "002C4526CC9753E6",
+                    resource = "002C4526CC9753E6", // [modules:/zuicontrolentity.class].pc_entitytype
                     type = "install"
                 });
                 uictMetaData.references.Add(new
@@ -146,7 +146,7 @@ namespace G2GFxDataTool
                 uicbMetaData.scrambled = true;
                 uicbMetaData.references.Add(new
                 {
-                    resource = "00578D925459143F",
+                    resource = "00578D925459143F", // [modules:/zuicontrolentity.class].pc_entityblueprint
                     type = "install"
                 });
 
@@ -159,9 +159,8 @@ namespace G2GFxDataTool
                 string asetAssemblyPathHash = Helpers.ConvertStringtoMD5(asetAssemblyPath);
                 string asebAssemblyPathHash = Helpers.ConvertStringtoMD5(asebAssemblyPath);
 
-                Program.logAspectPaths.Add(definition.className + ":");
-                Program.logAspectPaths.Add(asetAssemblyPathHash + ".ASET," + asetAssemblyPath);
-                Program.logAspectPaths.Add(asebAssemblyPathHash + ".ASEB," + asebAssemblyPath + "\r\n");
+                Program.logPaths.Add("\t\t" + asetAssemblyPathHash + ".ASET," + asetAssemblyPath);
+                Program.logPaths.Add("\t\t" + asebAssemblyPathHash + ".ASEB," + asebAssemblyPath);
 
                 MetaFiles.MetaData asetMetaData = new MetaFiles.MetaData();
                 asetMetaData.id = asetAssemblyPathHash;
@@ -173,7 +172,7 @@ namespace G2GFxDataTool
                 });
                 asetMetaData.references.Add(new
                 {
-                    resource = "002F0C25E6E34D14",
+                    resource = "002F0C25E6E34D14", // [modules:/zuicontrollayoutlegacyaspect.class].pc_entitytype
                     type = "install"
                 });
                 asetMetaData.references.Add(new
@@ -192,7 +191,7 @@ namespace G2GFxDataTool
                 });
                 asebMetaData.references.Add(new
                 {
-                    resource = "00B388AB33E1DAC0",
+                    resource = "00B388AB33E1DAC0", // [modules:/zuicontrollayoutlegacyaspect.class].pc_entityblueprint
                     type = "install"
                 });
 

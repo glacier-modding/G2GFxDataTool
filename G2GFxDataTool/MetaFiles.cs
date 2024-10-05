@@ -8,7 +8,7 @@ namespace G2GFxDataTool
         {
             public string id { get; set; } = "";
             public string type { get; set; } = "";
-            public bool compressed { get; set; }  = false;
+            public bool compressed { get; set; } = false;
             public bool scrambled { get; set; } = false;
             public List<object> references { get; set; } = new List<object>();
         }

@@ -4,9 +4,7 @@ namespace G2GFxDataTool
 {
     internal class Program
     {
-        public static HashSet<string> logUIControlPaths = new HashSet<string>();
-        public static HashSet<string> logScaleformGFxPaths = new HashSet<string>();
-        public static HashSet<string> logAspectPaths = new HashSet<string>();
+        public static List<string> logPaths = new List<string>();
 
         static void Main(string[] args)
         {
@@ -26,7 +24,7 @@ namespace G2GFxDataTool
 
                         if (attr.HasFlag(FileAttributes.Directory))
                         {
-                            foreach (var file in Directory.GetFiles(options.inputPath))
+                            foreach (var file in Directory.GetFiles(options.inputPath, "*", SearchOption.AllDirectories))
                             {
                                 string ext = Path.GetExtension(file).ToLower();
                                 if (ext == ".swf")
@@ -62,9 +60,7 @@ namespace G2GFxDataTool
 
                     if (options.savePaths)
                     {
-                        File.WriteAllLines(Path.Combine(options.outputPath, "uicontrol.txt"), logUIControlPaths);
-                        File.WriteAllLines(Path.Combine(options.outputPath, "scaleformgfx.txt"), logScaleformGFxPaths);
-                        File.WriteAllLines(Path.Combine(options.outputPath, "aspect.txt"), logAspectPaths);
+                        File.WriteAllLines(Path.Combine(options.outputPath, "paths.txt"), logPaths);
                     }
 
                 });

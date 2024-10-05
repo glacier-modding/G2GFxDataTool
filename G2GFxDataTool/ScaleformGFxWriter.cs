@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 
 namespace G2GFxDataTool
@@ -29,10 +28,10 @@ namespace G2GFxDataTool
                         Console.WriteLine(process.StandardOutput.ReadToEnd());
                     }
                     process.WaitForExit();
-                    
+
                     if (process.ExitCode != 0)
                     {
-                        Console.WriteLine("GFxExport failed to run. Please install Microsoft Visual C++ 2010 Redistributable x64 from https://www.microsoft.com/en-au/download/details.aspx?id=26999");
+                        Console.WriteLine("GFxExport failed to run. Please install Microsoft Visual C++ 2010 Redistributable x64 from https://www.microsoft.com/download/details.aspx?id=26999");
                         Environment.Exit(process.ExitCode);
                     }
                 }
@@ -77,11 +76,10 @@ namespace G2GFxDataTool
             var s_Generator = new ResourceLib.ResourceGenerator("GFXF", game);
             var s_ResourceMem = s_Generator.FromJsonStringToResourceMem(gfxfJSON);
 
-            //string assemblyPath = Helpers.AssemblyPathDeriver(inputPath, "swf");
             string assemblyPath = "[assembly:" + baseAssemblyPath + Path.GetFileNameWithoutExtension(inputPath) + ".swf" + "].pc_swf";
             string assemblyPathHash = Helpers.ConvertStringtoMD5(assemblyPath);
 
-            Program.logScaleformGFxPaths.Add(assemblyPathHash + ".GFXF," + assemblyPath);
+            Program.logPaths.Add("\r\n" + assemblyPathHash + ".GFXF," + assemblyPath);
 
             MetaFiles.MetaData gfxfMetaData = new MetaFiles.MetaData();
             gfxfMetaData.id = assemblyPathHash;
