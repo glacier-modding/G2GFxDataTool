@@ -4,7 +4,7 @@ namespace G2GFxDataTool
 {
     public class Options
     {
-        [Option('i', "input", SetName = "export", Required = false, HelpText = "Required. Path to the SWF file or directory containing SWF files.")]
+        [Option('i', "input", SetName = "export", Required = true, HelpText = "Required. Path to the SWF file or directory containing SWF files.")]
         public string inputPath { get; set; }
 
         [Option('o', "output", SetName = "export", Required = false, HelpText = "Path to output the files (defaults to the current working directory).")]
