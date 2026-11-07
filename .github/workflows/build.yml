@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
             submodules: true
 
@@ -25,7 +25,7 @@ jobs:
         run: dotnet publish -c Release /p:PublishProfile=win-x64 -p:DebugType=none
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: win-x64
           path: G2GFxDataTool\bin\Release\net8.0\publish\win-x64
@@ -37,12 +37,12 @@ jobs:
 
     steps:
       - name: Download win-x64 artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v8
         with:
           name: win-x64
 
       - name: Download ResourceTool
-        uses: robinraju/release-downloader@v1.11
+        uses: robinraju/release-downloader@v1.13
         with:
             repository: "OrfeasZ/ZHMTools"
             latest: true
@@ -51,11 +51,11 @@ jobs:
 
       - name: Package artifacts for release
         run: |
-          zip -r win-x64.zip G2GFxDataTool.exe ResourceLib_HM2016.dll ResourceLib_HM3.dll ResourceLib_HM2.dll
+          zip -r win-x64.zip G2GFxDataTool.exe ResourceLib_HM2016.dll ResourceLib_HM3.dll ResourceLib_HM2.dll ResourceLib_KNT.dll
 
       - name: Create Release
         id: create_release
         
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           files: win-x64.zip
